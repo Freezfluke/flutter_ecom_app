@@ -22,70 +22,6 @@ class _RegisterState extends State<Register> {
   }
 
   @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     body: ContainerWidget(
-  //       children: Container(
-  //         padding: const EdgeInsets.all(0),
-  //         width: double.infinity,
-  //         height: double.infinity,
-  //         child: Stack(
-  //           children: [
-  //             Positioned(
-  //               left: -100,
-  //               top: -70,
-  //               child: _circleRegister(),
-  //             ),
-  //             Positioned(
-  //               left: -5,
-  //               top: 70,
-  //               child: _circleText(),
-  //             ),
-  //             Column(
-  //               children: [
-  //                 _lottieAnimation(),
-  //                 SingleChildScrollView(
-  //                   child: Container(
-  //                     width: double.infinity,
-  //                     margin: const EdgeInsets.only(
-  //                       left: 40,
-  //                       top: 0,
-  //                       right: 40,
-  //                       bottom: 0,
-  //                     ),
-  //                     child: Column(
-  //                       children: [
-  //                         _textFieldEmail(),
-  //                         const SizedBox(height: 10),
-  //                         _textFieldName(),
-  //                         const SizedBox(height: 10),
-  //                         _textFieldLastName(),
-  //                         const SizedBox(height: 10),
-  //                         _textFieldPhoneNumber(),
-  //                         const SizedBox(height: 10),
-  //                         _textFieldPassword(),
-  //                         const SizedBox(height: 10),
-  //                         _textFieldCFPassword(),
-  //                         const SizedBox(
-  //                           height: 20,
-  //                         ),
-  //                         CustomButton(
-  //                           text: 'สมัครสมาชิก',
-  //                           onPressed: () {},
-  //                         ),
-  //                       ],
-  //                     ),
-  //                   ),
-  //                 )
-  //               ],
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
   Widget build(BuildContext context) {
     return ContainerWidget(
         children: Scaffold(
@@ -114,7 +50,7 @@ class _RegisterState extends State<Register> {
                   const SizedBox(height: 20),
                   CustomButton(
                     text: 'สมัครสมาชิก',
-                    onPressed: () {},
+                    onPressed: () => _con.register(),
                   ),
                 ],
               ),
@@ -188,6 +124,7 @@ class _RegisterState extends State<Register> {
 
   Widget _textFieldEmail() {
     return TextField(
+      controller: _con.emailController,
       decoration: InputDecoration(
           hintText: 'อีเมล',
           hintStyle: TextStyle(
@@ -205,6 +142,7 @@ class _RegisterState extends State<Register> {
 
   Widget _textFieldName() {
     return TextField(
+      controller: _con.nameController,
       decoration: InputDecoration(
           hintText: 'ชื่อ',
           hintStyle: TextStyle(color: MyColors.secondaryColor),
@@ -219,6 +157,7 @@ class _RegisterState extends State<Register> {
 
   Widget _textFieldLastName() {
     return TextField(
+      controller: _con.lastNameController,
       decoration: InputDecoration(
           hintText: 'นามสกุล',
           hintStyle: TextStyle(
@@ -236,6 +175,7 @@ class _RegisterState extends State<Register> {
 
   Widget _textFieldPhoneNumber() {
     return TextField(
+      controller: _con.phoneNumberController,
       decoration: InputDecoration(
           hintText: 'เบอร์โทร',
           hintStyle: TextStyle(color: MyColors.secondaryColor),
@@ -250,6 +190,7 @@ class _RegisterState extends State<Register> {
 
   Widget _textFieldPassword() {
     return TextField(
+      controller: _con.passwordController,
       decoration: InputDecoration(
           hintText: 'รหัสผู้ใช้งาน',
           hintStyle: TextStyle(color: MyColors.secondaryColor),
@@ -267,6 +208,7 @@ class _RegisterState extends State<Register> {
 
   Widget _textFieldCFPassword() {
     return TextField(
+      controller: _con.confirmPasswordController,
       decoration: InputDecoration(
           hintText: 'ยืนยันรหัสผู้ใช้งาน',
           hintStyle: TextStyle(color: MyColors.secondaryColor),

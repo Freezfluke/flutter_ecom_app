@@ -62,7 +62,8 @@ class _LoginPageState extends State<LoginPage> {
                                 height: 20,
                               ),
                               CustomButton(
-                                  text: 'เข้าสู่ระบบ', onPressed: () {}),
+                                  text: 'เข้าสู่ระบบ',
+                                  onPressed: () => _con.login()),
                             ],
                           )),
                       const SizedBox(height: 10),
@@ -76,6 +77,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _textFieldEmail() {
     return TextField(
+      controller: _con.emailController,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
           hintText: 'อีเมล',
@@ -94,6 +96,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _textFieldPassword() {
     return TextField(
+      controller: _con.passwordController,
       decoration: InputDecoration(
           hintText: 'รหัสผู้ใช้งาน',
           hintStyle: TextStyle(color: MyColors.secondaryColor),
