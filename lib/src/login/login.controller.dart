@@ -17,6 +17,5 @@ class LoginController {
   void login() {
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
-    print('Data $email $password');
   }
 }

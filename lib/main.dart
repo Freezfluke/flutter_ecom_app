@@ -49,6 +49,18 @@ class _MyAppState extends State<MyApp> {
                   color: MyColors.primaryColor,
                   width: 1.0), // Input field focused border
             ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: const BorderRadius.all(Radius.circular(30.0)),
+              borderSide: BorderSide(
+                  color: MyColors.primaryColor,
+                  width: 1.0), // Input field focused border
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: const BorderRadius.all(Radius.circular(30.0)),
+              borderSide: BorderSide(
+                  color: MyColors.primaryColor,
+                  width: 2.0), // Input field focused border
+            ),
           ),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(

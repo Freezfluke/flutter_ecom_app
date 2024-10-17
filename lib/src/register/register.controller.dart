@@ -8,12 +8,23 @@ class RegisterController {
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
+  String? validationPhoneNumber;
+
   void init(BuildContext context) {
     this.context = context;
   }
 
   void goBack() {
     Navigator.pop(context);
+  }
+
+  String? ValidatePhoneNumber(String value) {
+    if (value.isEmpty) {
+      return 'กรุณากรอกเบอร์โทรศัพท์';
+    } else if (!RegExp(r'^\+?[0-9]{10}$').hasMatch(value)) {
+      return 'กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง';
+    }
+    return null; // Valid input
   }
 
   void register() {
@@ -23,7 +34,7 @@ class RegisterController {
     String phoneNumber = phoneNumberController.text.trim();
     String password = passwordController.text.trim();
     String confirmPassword = confirmPasswordController.text.trim();
-    print(
-        'data, $email $name $lastName $phoneNumber $password $confirmPassword');
+
+    validationPhoneNumber = ValidatePhoneNumber(phoneNumber);
   }
 }

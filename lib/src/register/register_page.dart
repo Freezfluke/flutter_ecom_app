@@ -21,6 +21,11 @@ class _RegisterState extends State<Register> {
     _con.init(context);
   }
 
+  void _onSubmit() {
+    _con.register();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return ContainerWidget(
@@ -49,9 +54,10 @@ class _RegisterState extends State<Register> {
                   _textFieldCFPassword(),
                   const SizedBox(height: 20),
                   CustomButton(
-                    text: 'สมัครสมาชิก',
-                    onPressed: () => _con.register(),
-                  ),
+                      text: 'สมัครสมาชิก',
+                      onPressed: _con.validationPhoneNumber == null
+                          ? _onSubmit
+                          : null),
                 ],
               ),
             ),
@@ -175,7 +181,13 @@ class _RegisterState extends State<Register> {
 
   Widget _textFieldPhoneNumber() {
     return TextField(
+      onChanged: (value) {
+        setState(() {
+          _con.validationPhoneNumber = _con.ValidatePhoneNumber(value);
+        });
+      },
       controller: _con.phoneNumberController,
+      keyboardType: TextInputType.phone,
       decoration: InputDecoration(
           hintText: 'เบอร์โทร',
           hintStyle: TextStyle(color: MyColors.secondaryColor),
@@ -184,7 +196,8 @@ class _RegisterState extends State<Register> {
           prefixIcon: Icon(
             Icons.phone,
             color: MyColors.primaryColor,
-          )),
+          ),
+          errorText: _con.validationPhoneNumber),
     );
   }
 
