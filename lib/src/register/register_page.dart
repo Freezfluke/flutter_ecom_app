@@ -131,6 +131,7 @@ class _RegisterState extends State<Register> {
   Widget _textFieldEmail() {
     return TextField(
       controller: _con.emailController,
+      focusNode: _con.emailFocusNode,
       decoration: InputDecoration(
           hintText: 'อีเมล',
           hintStyle: TextStyle(
@@ -142,7 +143,8 @@ class _RegisterState extends State<Register> {
           prefixIcon: Icon(
             Icons.email,
             color: MyColors.primaryColor,
-          )),
+          ),
+          errorText: _con.validationEmail),
     );
   }
 
@@ -157,7 +159,8 @@ class _RegisterState extends State<Register> {
           prefixIcon: Icon(
             Icons.person,
             color: MyColors.primaryColor,
-          )),
+          ),
+          errorText: _con.validationName),
     );
   }
 
@@ -175,7 +178,8 @@ class _RegisterState extends State<Register> {
           prefixIcon: Icon(
             Icons.person_2_outlined,
             color: MyColors.primaryColor,
-          )),
+          ),
+          errorText: _con.validationLastname),
     );
   }
 
@@ -213,7 +217,8 @@ class _RegisterState extends State<Register> {
           prefixIcon: Icon(
             Icons.key,
             color: MyColors.primaryColor,
-          )),
+          ),
+          errorText: _con.validationPassword),
       obscureText: true,
       enableSuggestions: false,
       autocorrect: false,
@@ -231,7 +236,8 @@ class _RegisterState extends State<Register> {
           prefixIcon: Icon(
             Icons.key,
             color: MyColors.primaryColor,
-          )),
+          ),
+          errorText: _con.validationConfirmPassword),
       obscureText: true,
       enableSuggestions: false,
       autocorrect: false,
