@@ -8,6 +8,7 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(onPressed);
     return Container(
         padding: const EdgeInsets.all(0),
         width: double.infinity,

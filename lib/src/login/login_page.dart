@@ -19,8 +19,15 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+
     SchedulerBinding.instance
         .addPostFrameCallback((timeStamp) => _con.init(context));
+  }
+
+  void _onLogin() {
+    setState(() {
+      _con.login();
+    });
   }
 
   @override
@@ -62,8 +69,9 @@ class _LoginPageState extends State<LoginPage> {
                                 height: 20,
                               ),
                               CustomButton(
-                                  text: 'เข้าสู่ระบบ',
-                                  onPressed: () => _con.login()),
+                                text: 'เข้าสู่ระบบ',
+                                onPressed: _con.isValid ? null : _onLogin,
+                              ),
                             ],
                           )),
                       const SizedBox(height: 10),
@@ -77,6 +85,9 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _textFieldEmail() {
     return TextField(
+      onChanged: (value) => setState(() {
+        _con.validationLogin();
+      }),
       autofocus: true,
       controller: _con.emailController,
       keyboardType: TextInputType.emailAddress,
@@ -97,6 +108,9 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _textFieldPassword() {
     return TextField(
+      onChanged: (value) => setState(() {
+        _con.validationLogin();
+      }),
       controller: _con.passwordController,
       decoration: InputDecoration(
           hintText: 'รหัสผู้ใช้งาน',
