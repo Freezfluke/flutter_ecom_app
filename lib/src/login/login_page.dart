@@ -77,6 +77,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _textFieldEmail() {
     return TextField(
+      autofocus: true,
       controller: _con.emailController,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(

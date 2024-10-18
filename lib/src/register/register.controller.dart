@@ -9,6 +9,7 @@ class RegisterController {
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   String? validationPhoneNumber;
+  final FocusNode phoneNumberFocusNode = FocusNode();
 
   void init(BuildContext context) {
     this.context = context;
@@ -18,13 +19,19 @@ class RegisterController {
     Navigator.pop(context);
   }
 
-  String? ValidatePhoneNumber(String value) {
+  String? validatePhoneNumber(String value) {
     if (value.isEmpty) {
       return 'กรุณากรอกเบอร์โทรศัพท์';
     } else if (!RegExp(r'^\+?[0-9]{10}$').hasMatch(value)) {
       return 'กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง';
     }
     return null; // Valid input
+  }
+
+  void focusFirstError(String value) {
+    if (value != null) {
+      phoneNumberFocusNode.requestFocus();
+    }
   }
 
   void register() {
@@ -34,7 +41,7 @@ class RegisterController {
     String phoneNumber = phoneNumberController.text.trim();
     String password = passwordController.text.trim();
     String confirmPassword = confirmPasswordController.text.trim();
-
-    validationPhoneNumber = ValidatePhoneNumber(phoneNumber);
+    focusFirstError(phoneNumber);
+    validationPhoneNumber = validatePhoneNumber(phoneNumber);
   }
 }

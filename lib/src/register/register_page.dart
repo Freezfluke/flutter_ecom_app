@@ -181,9 +181,10 @@ class _RegisterState extends State<Register> {
 
   Widget _textFieldPhoneNumber() {
     return TextField(
+      focusNode: _con.phoneNumberFocusNode,
       onChanged: (value) {
         setState(() {
-          _con.validationPhoneNumber = _con.ValidatePhoneNumber(value);
+          _con.validationPhoneNumber = _con.validatePhoneNumber(value);
         });
       },
       controller: _con.phoneNumberController,
