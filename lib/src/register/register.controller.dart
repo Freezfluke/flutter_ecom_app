@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 class RegisterController {
@@ -44,12 +42,13 @@ class RegisterController {
 
   bool checkComfirmPassword(String value, String compare) {
     if (value.isNotEmpty && value != compare) {
+      print('HiSecond');
       validationConfirmPassword =
           'กรุณากรอก Comfirm password ให้ตรงกับ Password';
       confirmPasswordFocusNode.requestFocus();
       return true;
     } else {
-      validationConfirmPassword = '';
+      validationConfirmPassword = null;
       return false;
     }
   }

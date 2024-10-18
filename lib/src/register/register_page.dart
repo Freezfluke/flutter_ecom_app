@@ -226,6 +226,7 @@ class _RegisterState extends State<Register> {
   }
 
   Widget _textFieldCFPassword() {
+    print('validationConfirmPassword $_con.validationConfirmPassword');
     return TextField(
       controller: _con.confirmPasswordController,
       focusNode: _con.confirmPasswordFocusNode,
