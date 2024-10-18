@@ -22,8 +22,9 @@ class _RegisterState extends State<Register> {
   }
 
   void _onSubmit() {
-    _con.register();
-    setState(() {});
+    setState(() {
+      _con.register();
+    });
   }
 
   @override
@@ -53,11 +54,7 @@ class _RegisterState extends State<Register> {
                   const SizedBox(height: 10),
                   _textFieldCFPassword(),
                   const SizedBox(height: 20),
-                  CustomButton(
-                      text: 'สมัครสมาชิก',
-                      onPressed: _con.validationPhoneNumber == null
-                          ? _onSubmit
-                          : null),
+                  CustomButton(text: 'สมัครสมาชิก', onPressed: _onSubmit),
                 ],
               ),
             ),
@@ -151,6 +148,7 @@ class _RegisterState extends State<Register> {
   Widget _textFieldName() {
     return TextField(
       controller: _con.nameController,
+      focusNode: _con.nameFocusNode,
       decoration: InputDecoration(
           hintText: 'ชื่อ',
           hintStyle: TextStyle(color: MyColors.secondaryColor),
@@ -167,6 +165,7 @@ class _RegisterState extends State<Register> {
   Widget _textFieldLastName() {
     return TextField(
       controller: _con.lastNameController,
+      focusNode: _con.lastNameFocusNode,
       decoration: InputDecoration(
           hintText: 'นามสกุล',
           hintStyle: TextStyle(
@@ -209,6 +208,7 @@ class _RegisterState extends State<Register> {
   Widget _textFieldPassword() {
     return TextField(
       controller: _con.passwordController,
+      focusNode: _con.passwordFocusNode,
       decoration: InputDecoration(
           hintText: 'รหัสผู้ใช้งาน',
           hintStyle: TextStyle(color: MyColors.secondaryColor),
@@ -228,6 +228,7 @@ class _RegisterState extends State<Register> {
   Widget _textFieldCFPassword() {
     return TextField(
       controller: _con.confirmPasswordController,
+      focusNode: _con.confirmPasswordFocusNode,
       decoration: InputDecoration(
           hintText: 'ยืนยันรหัสผู้ใช้งาน',
           hintStyle: TextStyle(color: MyColors.secondaryColor),

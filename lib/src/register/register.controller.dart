@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class RegisterController {
@@ -20,6 +22,8 @@ class RegisterController {
   final FocusNode lastNameFocusNode = FocusNode();
   final FocusNode passwordFocusNode = FocusNode();
   final FocusNode confirmPasswordFocusNode = FocusNode();
+  var isValid = true;
+  var stop = false;
 
   void init(BuildContext context) {
     this.context = context;
@@ -38,61 +42,83 @@ class RegisterController {
     return null; // Valid input
   }
 
+  bool checkComfirmPassword(String value, String compare) {
+    if (value.isNotEmpty && value != compare) {
+      validationConfirmPassword =
+          'กรุณากรอก Comfirm password ให้ตรงกับ Password';
+      confirmPasswordFocusNode.requestFocus();
+      return true;
+    } else {
+      validationConfirmPassword = '';
+      return false;
+    }
+  }
+
   void focusFirstError(Object? value) {
     if (value is Map<String, dynamic>) {
       // Check if 'name' exists and is a String
       final fieldName = value['name'] as String?;
       final fieldValue = value['value'] as String;
 
-      // Only proceed if 'name' is not null
       if (fieldValue.isEmpty) {
-        switch (fieldName) {
-          case 'email':
-            emailFocusNode.requestFocus();
-            validationEmail = 'กรุณากรอก อีเมล';
-            break;
-          case 'name':
-            nameFocusNode.requestFocus();
-            validationName = 'กรุณากรอก ชื่อ';
-            break;
-          case 'lastName':
-            nameFocusNode.requestFocus();
-            validationLastname = 'กรุณากรอก นามสกุล';
-            break;
-          case 'phoneNumber':
-            nameFocusNode.requestFocus();
-            validationPhoneNumber = validatePhoneNumber(fieldValue);
-            break;
-          case 'password':
-            nameFocusNode.requestFocus();
-            validationPassword = 'กรุณากรอก รหัสผู้ใช้งาน';
-            break;
-          case 'confirmPassword':
-            nameFocusNode.requestFocus();
-            validationConfirmPassword = 'กรุณากรอก รหัสผู้ใช้งาน';
-            break;
-          default:
-            break;
+        isValid = true;
+        if (stop == false) {
+          switch (fieldName) {
+            case 'email':
+              emailFocusNode.requestFocus();
+              validationEmail = 'กรุณากรอก อีเมล';
+              stop = true;
+              break;
+            case 'name':
+              nameFocusNode.requestFocus();
+              validationName = 'กรุณากรอก ชื่อ';
+              stop = true;
+              break;
+            case 'lastName':
+              lastNameFocusNode.requestFocus();
+              validationLastname = 'กรุณากรอก นามสกุล';
+              stop = true;
+              break;
+            case 'phoneNumber':
+              phoneNumberFocusNode.requestFocus();
+              validationPhoneNumber = validatePhoneNumber(fieldValue);
+              stop = true;
+              break;
+            case 'password':
+              passwordFocusNode.requestFocus();
+              validationPassword = 'กรุณากรอก รหัสผู้ใช้งาน';
+              stop = true;
+              break;
+            case 'confirmPassword':
+              confirmPasswordFocusNode.requestFocus();
+              validationConfirmPassword = 'กรุณากรอก ยืนยันรหัสผู้ใช้งาน';
+              stop = true;
+              break;
+            default:
+              break;
+          }
         }
       } else {
+        stop = false;
+        isValid = false;
         switch (fieldName) {
           case 'email':
-            validationEmail = '';
+            validationEmail = null;
             break;
           case 'name':
-            validationName = '';
+            validationName = null;
             break;
           case 'lastName':
-            validationLastname = '';
+            validationLastname = null;
             break;
           case 'phoneNumber':
-            validationPhoneNumber = '';
+            validationPhoneNumber = null;
             break;
           case 'password':
-            validationPassword = '';
+            validationPassword = null;
             break;
           case 'confirmPassword':
-            validationConfirmPassword = '';
+            validationConfirmPassword = null;
             break;
           default:
             break;
@@ -121,8 +147,13 @@ class RegisterController {
     for (var entry in fields.entries) {
       String value = entry.value;
       String fieldName = entry.key;
-
       focusFirstError({'name': fieldName, 'value': value});
+    }
+    bool checkComfirm = checkComfirmPassword(password, confirmPassword);
+    print('$checkComfirm $isValid');
+    if (isValid == false && checkComfirm == false) {
+      print(
+          '$email $name, $lastName,$phoneNumber, $password, $confirmPassword');
     }
   }
 }
