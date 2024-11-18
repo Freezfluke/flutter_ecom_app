@@ -1,4 +1,4 @@
-import 'package:first_app/src/register/register.controller.dart';
+import 'package:first_app/src/pages/register/register.controller.dart';
 import 'package:first_app/src/utils/my_colors.dart';
 import 'package:first_app/src/utils/my_icons.dart';
 import 'package:first_app/src/widget/animation_derilvery.dart';
