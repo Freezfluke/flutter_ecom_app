@@ -32,10 +32,9 @@ class RegisterController {
   UserProvider userProvider = UserProvider();
   final MySnackbar snackBar = MySnackbar();
 
-  void init(BuildContext context) {
+  void init(BuildContext context) async {
     this.context = context;
-    userProvider.init(context);
-    // snackBar.init(context);
+    await userProvider.init(context);
   }
 
   void goBack() {
