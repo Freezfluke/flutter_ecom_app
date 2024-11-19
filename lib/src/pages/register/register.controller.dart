@@ -1,3 +1,7 @@
+import 'package:first_app/src/models/response_api.dart';
+import 'package:first_app/src/models/user.dart';
+import 'package:first_app/src/provider/users.provider.dart';
+import 'package:first_app/src/utils/my_snackbar.dart';
 import 'package:flutter/material.dart';
 
 class RegisterController {
@@ -22,9 +26,15 @@ class RegisterController {
   final FocusNode confirmPasswordFocusNode = FocusNode();
   var isValid = true;
   var stop = false;
+  bool loadingButton = false;
+
+  UserProvider userProvider = UserProvider();
+  final MySnackbar snackBar = MySnackbar();
 
   void init(BuildContext context) {
     this.context = context;
+    userProvider.init(context);
+    // snackBar.init(context);
   }
 
   void goBack() {
@@ -42,7 +52,6 @@ class RegisterController {
 
   bool checkComfirmPassword(String value, String compare) {
     if (value.isNotEmpty && value != compare) {
-      print('HiSecond');
       validationConfirmPassword =
           'กรุณากรอก Comfirm password ให้ตรงกับ Password';
       confirmPasswordFocusNode.requestFocus();
@@ -126,7 +135,7 @@ class RegisterController {
     }
   }
 
-  void register() {
+  void register(setState) async {
     String email = emailController.text.trim();
     String name = nameController.text.trim();
     String lastName = lastNameController.text.trim();
@@ -149,10 +158,32 @@ class RegisterController {
       focusFirstError({'name': fieldName, 'value': value});
     }
     bool checkComfirm = checkComfirmPassword(password, confirmPassword);
-    print('$checkComfirm $isValid');
+
     if (isValid == false && checkComfirm == false) {
-      print(
-          '$email $name, $lastName,$phoneNumber, $password, $confirmPassword');
+      setState(() {
+        loadingButton = true;
+      });
+
+      User user = User(
+          email: email,
+          password: password,
+          name: name,
+          lastName: lastName,
+          phoneNumber: phoneNumber);
+
+      try {
+        ResponseApi responseApi = await userProvider.create(user);
+        if (!context.mounted) return;
+        snackBar.showSnackBar(context, responseApi.message,
+            responseApi.success ? Colors.green : Colors.red);
+      } catch (e) {
+        snackBar.showSnackBar(
+            context, 'ระบบมีปัญหากรุณาทำรายการใหม่อีกครั้ง', Colors.red);
+      }
+
+      setState(() {
+        loadingButton = false;
+      });
     }
   }
 }

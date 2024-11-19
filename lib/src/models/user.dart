@@ -18,6 +18,7 @@ class User {
     required this.lastName,
     required this.phoneNumber,
   });
+
   factory User.fromJson(Map<String, dynamic> json) => User(
       email: json['email'] ?? '',
       password: json['password'] ?? '',

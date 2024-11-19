@@ -1,6 +1,7 @@
 import 'package:first_app/src/pages/register/register.controller.dart';
 import 'package:first_app/src/utils/my_colors.dart';
 import 'package:first_app/src/utils/my_icons.dart';
+import 'package:first_app/src/utils/my_snackbar.dart';
 import 'package:first_app/src/widget/animation_derilvery.dart';
 import 'package:first_app/src/widget/container.dart';
 import 'package:first_app/src/widget/custom_button.dart';
@@ -15,15 +16,18 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final RegisterController _con = RegisterController();
+  final MySnackbar _snackbar = MySnackbar();
+
   @override
   void initState() {
     super.initState();
     _con.init(context);
+    _snackbar.init(context);
   }
 
   void _onSubmit() {
     setState(() {
-      _con.register();
+      _con.register(setState);
     });
   }
 
@@ -54,7 +58,9 @@ class _RegisterState extends State<Register> {
                   const SizedBox(height: 10),
                   _textFieldCFPassword(),
                   const SizedBox(height: 20),
-                  CustomButton(text: 'สมัครสมาชิก', onPressed: _onSubmit),
+                  CustomButton(
+                      text: 'สมัครสมาชิก',
+                      onPressed: _con.loadingButton ? null : _onSubmit),
                 ],
               ),
             ),
@@ -226,7 +232,6 @@ class _RegisterState extends State<Register> {
   }
 
   Widget _textFieldCFPassword() {
-    print('validationConfirmPassword $_con.validationConfirmPassword');
     return TextField(
       controller: _con.confirmPasswordController,
       focusNode: _con.confirmPasswordFocusNode,

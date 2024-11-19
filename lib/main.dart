@@ -1,5 +1,5 @@
-import 'package:first_app/src/login/login_page.dart';
-import 'package:first_app/src/register/register_page.dart';
+import 'package:first_app/src/pages/login/login_page.dart';
+import 'package:first_app/src/pages/register/register_page.dart';
 import 'package:first_app/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 

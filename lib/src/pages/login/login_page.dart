@@ -1,4 +1,4 @@
-import 'package:first_app/src/login/login.controller.dart';
+import 'package:first_app/src/pages/login/login.controller.dart';
 import 'package:first_app/src/utils/my_colors.dart';
 import 'package:first_app/src/utils/my_icons.dart';
 import 'package:first_app/src/widget/animation_derilvery.dart';
