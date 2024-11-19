@@ -1,9 +1,12 @@
+import 'package:first_app/src/utils/my_logs.dart';
+
 class ResponseApi {
   String message = '';
   // String error = '';
   bool success = false;
   dynamic result;
   ResponseApi({required this.message, required this.success});
+  final MyLogs _myLogs = MyLogs();
 
   ResponseApi.fromJson(Map<String, dynamic> json) {
     message = json['message'];
@@ -13,7 +16,7 @@ class ResponseApi {
     try {
       result = json["result"];
     } catch (e) {
-      print('ไม่พบข้อมูล $e');
+      _myLogs.log('$e');
     }
   }
 

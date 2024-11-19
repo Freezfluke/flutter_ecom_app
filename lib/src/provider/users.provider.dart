@@ -28,7 +28,7 @@ class UserProvider {
       ResponseApi responseApi = ResponseApi.fromJson(result);
       return responseApi;
     } catch (e) {
-      throw Exception('Error during API request: $e');
+      throw Exception('ระบบขัดข้อง $e');
     }
   }
 }

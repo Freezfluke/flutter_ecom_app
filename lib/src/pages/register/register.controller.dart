@@ -2,6 +2,7 @@ import 'package:first_app/src/models/response_api.dart';
 import 'package:first_app/src/models/user.dart';
 import 'package:first_app/src/provider/users.provider.dart';
 import 'package:first_app/src/utils/my_snackbar.dart';
+import 'package:first_app/src/utils/my_timmer.dart';
 import 'package:flutter/material.dart';
 
 class RegisterController {
@@ -174,11 +175,15 @@ class RegisterController {
       try {
         ResponseApi responseApi = await userProvider.create(user);
         if (!context.mounted) return;
+
         snackBar.showSnackBar(context, responseApi.message,
             responseApi.success ? Colors.green : Colors.red);
+        if (responseApi.success) {
+          MyTimmer delay = MyTimmer();
+          delay.durationTimmer(callbackFunction: goBack);
+        }
       } catch (e) {
-        snackBar.showSnackBar(
-            context, 'ระบบมีปัญหากรุณาทำรายการใหม่อีกครั้ง', Colors.red);
+        snackBar.showSnackBar(context, '$e', Colors.red);
       }
 
       setState(() {
