@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:first_app/src/api/environment.dart';
 import 'package:first_app/src/models/response_api.dart';
 import 'package:first_app/src/models/user.dart';
@@ -27,26 +29,32 @@ class UserProvider {
       final result = jsonDecode(res.body);
       ResponseApi responseApi = ResponseApi.fromJson(result);
       return responseApi;
+    } on SocketException catch (_) {
+      throw Exception('ไม่สามารถเชื่อมต่อระบบได้กรุณาทำรายการใหม่อีกครั้ง');
     } catch (e) {
-      throw Exception('ระบบขัดข้อง $e');
+      throw Exception('$e');
     }
   }
 
-  Future<ResponseApi> singIn(String email, String password) async {
+  Future<ResponseApi> signIn(String email, String password) async {
     try {
       Uri url = Uri.parse('$_api${MyService.signIn}');
 
       String bodyParams = json.encode({"email": email, "password": password});
 
-      final res =
-          await http.post(url, headers: Environment.headers, body: bodyParams);
+      final res = await http.post(
+        url,
+        headers: Environment.headers,
+        body: bodyParams,
+      );
+
       final result = jsonDecode(res.body);
       ResponseApi responseApi = ResponseApi.fromJson(result);
       return responseApi;
+    } on SocketException catch (_) {
+      throw Exception('ไม่สามารถเชื่อมต่อระบบได้กรุณาทำรายการใหม่อีกครั้ง');
     } catch (e) {
-      ResponseApi responseApi =
-          ResponseApi.fromJson({"message": '$e', "success": false});
-      return responseApi;
+      throw Exception('$e');
     }
   }
 }

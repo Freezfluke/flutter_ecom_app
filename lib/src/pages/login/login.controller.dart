@@ -1,10 +1,15 @@
+import 'dart:convert';
+
 import 'package:first_app/src/models/response_api.dart';
+import 'package:first_app/src/models/user.dart';
 import 'package:first_app/src/provider/users.provider.dart';
 import 'package:first_app/src/utils/my_route.dart';
 import 'package:first_app/src/utils/my_snackbar.dart';
+import 'package:first_app/src/utils/shared_perference.dart';
 import 'package:flutter/material.dart';
 
 class LoginController {
+  SharedPerference sharedPref = SharedPerference();
   UserProvider userProvider = UserProvider();
   final MySnackbar _snackbar = MySnackbar();
   late BuildContext context;
@@ -35,7 +40,12 @@ class LoginController {
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
     try {
-      ResponseApi responseApi = await userProvider.singIn(email, password);
+      ResponseApi responseApi = await userProvider.signIn(email, password);
+      if (responseApi.success) {
+        final token = responseApi.result['token'];
+
+        sharedPref.save(key: 'token', value: token);
+      }
       if (!context.mounted) return;
       _snackbar.showSnackBar(context, responseApi.message,
           responseApi.success ? Colors.green : Colors.red);

@@ -16,7 +16,7 @@ class MySnackbar {
         content: Text(
           message,
           textAlign: TextAlign.center,
-          style: const TextStyle(color: Colors.white, fontSize: 18),
+          style: const TextStyle(color: Colors.white, fontSize: 20),
         ),
         backgroundColor: changeBackground,
         duration: const Duration(seconds: 3),
